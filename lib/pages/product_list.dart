@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_api_integration/models/product_model.dart';
+import 'package:flutter_api_integration/pages/product_details.dart';
+// import 'package:flutter_api_integration/pages/product_details.dart';
 import 'package:flutter_api_integration/services/api_integration.dart';
 
 class ProductList extends StatefulWidget {
@@ -27,7 +29,10 @@ class _ProductListState extends State<ProductList> {
   PreferredSizeWidget getAppBar() {
     return AppBar(
       leading: Icon(Icons.window_sharp, color: Colors.blue),
-      title: Text('Product Catalog'),
+      title: Text(
+        'Product Catalog',
+        style: TextStyle(fontWeight: FontWeight.bold),
+      ),
       actions: [
         IconButton(onPressed: () => refreshData(), icon: Icon(Icons.refresh)),
       ],
@@ -56,9 +61,12 @@ class _ProductListState extends State<ProductList> {
                   }
 
                   final products = snapshot.data!;
+                  int crossAxisCount = MediaQuery.of(context).size.width > 600
+                      ? 3
+                      : 2;
                   return GridView.builder(
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
+                      crossAxisCount: crossAxisCount,
                       childAspectRatio: 0.8,
                     ),
                     itemCount: products.length,
@@ -66,110 +74,121 @@ class _ProductListState extends State<ProductList> {
                       final product = products[index];
                       return Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            color: Colors.white,
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.black.withValues(alpha: 0.1),
-                                blurRadius: 10,
-                                offset: Offset(0, 5),
+                        child: GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    ProductDetails(product: product),
                               ),
-                            ],
-                          ),
+                            );
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: Colors.white,
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withValues(alpha: 0.1),
+                                  blurRadius: 10,
+                                  offset: Offset(0, 5),
+                                ),
+                              ],
+                            ),
 
-                          child: Column(
-                            mainAxisAlignment: .start,
-                            crossAxisAlignment: .start,
-                            mainAxisSize: .min,
-                            children: [
-                              Stack(
-                                children: [
-                                  Container(
-                                    height: 170,
-                                    width: double.infinity,
-                                    decoration: BoxDecoration(
-                                      color: Color(0xFFF5F5F5),
-                                      borderRadius: BorderRadius.vertical(
-                                        top: Radius.circular(10),
-                                      ),
-                                    ),
-
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.vertical(
-                                        top: Radius.circular(10),
-                                      ),
-                                      child: Image.network(
-                                        product.image,
-                                        fit: BoxFit.contain,
-                                      ),
-                                    ),
-                                  ),
-
-                                  Positioned(
-                                    top: 8,
-                                    right: 8,
-                                    child: Container(
+                            child: Column(
+                              mainAxisAlignment: .start,
+                              crossAxisAlignment: .start,
+                              mainAxisSize: .min,
+                              children: [
+                                Stack(
+                                  children: [
+                                    Container(
+                                      height: 170,
+                                      width: double.infinity,
                                       decoration: BoxDecoration(
-                                        color: Colors.white.withValues(
-                                          alpha: 0.6,
+                                        color: Color(0xFFF5F5F5),
+                                        borderRadius: BorderRadius.vertical(
+                                          top: Radius.circular(10),
                                         ),
-                                        shape: BoxShape.circle,
                                       ),
-                                      child: IconButton(
-                                        onPressed: () {},
-                                        icon: Icon(Icons.favorite, size: 20),
+
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.vertical(
+                                          top: Radius.circular(10),
+                                        ),
+                                        child: Image.network(
+                                          product.image,
+                                          fit: BoxFit.contain,
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                ],
-                              ),
 
-                              SizedBox(height: 20),
-                              Padding(
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 12,
+                                    Positioned(
+                                      top: 8,
+                                      right: 8,
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          color: Colors.white.withValues(
+                                            alpha: 0.6,
+                                          ),
+                                          shape: BoxShape.circle,
+                                        ),
+                                        child: IconButton(
+                                          onPressed: () {},
+                                          icon: Icon(Icons.favorite, size: 20),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                                child: Text(
-                                  product.title,
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold,
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
-                                ),
-                              ),
 
-                              SizedBox(height: 8),
-                              Padding(
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 12,
-                                ),
-                                child: Text(
-                                  '\$${product.price}',
-                                  style: TextStyle(
-                                    color: Colors.blue,
-                                    fontSize: 28,
-                                    fontWeight: FontWeight.w900,
+                                SizedBox(height: 20),
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 12,
+                                  ),
+                                  child: Text(
+                                    product.title,
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
                                   ),
                                 ),
-                              ),
 
-                              SizedBox(height: 8),
-                              Padding(
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 12,
-                                ),
-                                child: Text(
-                                  product.category,
-                                  style: TextStyle(
-                                    color: Colors.grey,
-                                    fontSize: 14,
+                                SizedBox(height: 8),
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 12,
+                                  ),
+                                  child: Text(
+                                    '\$${product.price}',
+                                    style: TextStyle(
+                                      color: Colors.blue,
+                                      fontSize: 28,
+                                      fontWeight: FontWeight.w900,
+                                    ),
                                   ),
                                 ),
-                              ),
-                            ],
+
+                                SizedBox(height: 8),
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 12,
+                                  ),
+                                  child: Text(
+                                    product.category,
+                                    style: TextStyle(
+                                      color: Colors.grey,
+                                      fontSize: 14,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                         //
