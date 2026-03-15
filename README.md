@@ -1,17 +1,44 @@
-# flutter_api_integration
+# Flutter Product App
 
-A new Flutter project.
+A **Flutter mobile app** showcasing products fetched from an API using **Dio**. This app demonstrates API integration, dynamic UI rendering, and responsive design.
+## Features
 
-## Getting Started
+- **Product List Page**
+  - Displays all products in a card layout
+  - Each product card shows:
+    - Image
+    - Title
+    - Price
+    - Category
+  - Responsive design for different screen sizes
 
-This project is a starting point for a Flutter application.
+- **Product Details Page**
+  - Detailed view of a selected product
+  - Displays:
+    - Product image
+    - Title
+    - Description
+    - Rating (stars and number of reviews)
 
-A few resources to get you started if this is your first Flutter project:
+- **API Integration using Dio**
+  - Fetches product data from a RESTful API
+  - Handles dynamic content rendering
+  - Includes error handling for network requests
 
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
+## Screenshots
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Product List Page
+-
+Product Details Page
+-
+
+## Folder Structure
+```
+lib/
+├── main.dart           # Entry point of the app
+├── models/             # Data models (Product)
+├── pages/              # UI pages (ProductList, ProductDetails)
+├── services/           # API service using Dio          
+```
+## Author
+Yodit Girma
