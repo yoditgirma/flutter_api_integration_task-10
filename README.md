@@ -27,9 +27,9 @@ A **Flutter mobile app** showcasing products fetched from an API using **Dio**. 
 
 ## Screenshots
 
--**Product List Page**
+Product List Page
 -
-**Product Details Page**
+Product Details Page
 -
 
 ## Folder Structure
@@ -41,4 +41,4 @@ lib/
 ├── services/           # API service using Dio          
 ```
 ## Author
--Yodit Girma
+Yodit Girma
