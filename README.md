@@ -28,9 +28,9 @@ A **Flutter mobile app** showcasing products fetched from an API using **Dio**. 
 ## Screenshots
 
 Product List Page
--
+- ![alt text](image.png)
 Product Details Page
--
+- ![alt text](image-1.png)
 
 ## Folder Structure
 ```
